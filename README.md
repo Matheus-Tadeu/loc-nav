@@ -1,6 +1,6 @@
 # Projeto LocNav
 
-Simples projeto (LocNav) que busca a localização de embarcações.
+Simples projeto que busca a localização de embarcações.
 
 ## Tecnologias Utilizadas
 - [PHP](https://www.php.net/): Linguagem de programação utilizada para desenvolver o projeto.
@@ -17,35 +17,6 @@ Simples projeto (LocNav) que busca a localização de embarcações.
 Para subir o projeto, você deve ter o Docker instalado na sua máquina. Em seguida, execute o seguinte comando:
 ```bash
 docker-compose up --build -d
-```
-
-
-## Documentação da API
-
-A documentação Swagger do projeto pode ser acessada através do seguinte link quando o projeto estiver rodando: http://localhost:9000/api/documentation
-
-Comando para atualizar ajustes no Swagger:
-```bash
-php artisan l5-swagger:generate
-```
-
-## Como executar os testes
-
-Para rodar os testes unitários, execute o seguinte comando:
-
-```bash
-docker-compose exec app ./vendor/bin/phpunit
-```
-
-
-## Coverage
-
-O relatório de cobertura de testes pode ser encontrado na seguinte URL: [Link para o relatório de cobertura](http://localhost:63342/creational-pattern-factory-method-in-php/tests/Coverage/html/index.html)
-
-Para atualizar o coverage dos testes, execute o comando:
-
-```bash
-XDEBUG_MODE=coverage ./vendor/bin/phpunit --coverage-html tests/Coverage/
 ```
 
 ## Autor
