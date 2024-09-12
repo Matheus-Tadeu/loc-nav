@@ -1,0 +1,249 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Exemple Creational Pattern Factory Method",
+        "version": "0.1"
+    },
+    "paths": {
+        "/api/button": {
+            "get": {
+                "tags": [
+                    "Get Buttons"
+                ],
+                "summary": "Get all buttons",
+                "operationId": "d630e9a5c27be7092d7e042c04cb7ab4",
+                "responses": {
+                    "200": {
+                        "description": "List of buttons",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "0": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "integer",
+                                                    "example": 1
+                                                },
+                                                "label": {
+                                                    "type": "string",
+                                                    "example": "Click Me"
+                                                },
+                                                "platform": {
+                                                    "type": "string",
+                                                    "example": "windows"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Create Button"
+                ],
+                "summary": "Create a new button",
+                "operationId": "a588a46ad074e82cb8e5e23f2ecc36ac",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "label",
+                                    "platform"
+                                ],
+                                "properties": {
+                                    "label": {
+                                        "type": "string",
+                                        "example": "Click Me"
+                                    },
+                                    "platform": {
+                                        "type": "string",
+                                        "enum": [
+                                            "windows",
+                                            "ios"
+                                        ],
+                                        "example": "windows"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Button created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "label": {
+                                            "type": "string",
+                                            "example": "Click Me"
+                                        },
+                                        "platform": {
+                                            "type": "string",
+                                            "example": "windows"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The label field is required. (and 1 more error)"
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "label": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The label field is required."
+                                                    }
+                                                },
+                                                "platform": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The platform field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/socialmedia/{platform}": {
+            "post": {
+                "tags": [
+                    "Social Media"
+                ],
+                "summary": "Post content to a social media platform",
+                "operationId": "11d87e097c0e96905962214f87de32ef",
+                "parameters": [
+                    {
+                        "name": "platform",
+                        "in": "path",
+                        "description": "The social media platform to post to",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "facebook",
+                                "linkedin"
+                            ]
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "content"
+                                ],
+                                "properties": {
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Hello, World!"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Content posted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "content": {
+                                            "type": "string",
+                                            "example": "Hello, World!"
+                                        },
+                                        "platform": {
+                                            "type": "string",
+                                            "example": "twitter"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "The selected platform is invalid."
+                                        },
+                                        "errors": {
+                                            "properties": {
+                                                "platform": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The selected platform is invalid."
+                                                    }
+                                                },
+                                                "content": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "string",
+                                                        "example": "The content field is required."
+                                                    }
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
