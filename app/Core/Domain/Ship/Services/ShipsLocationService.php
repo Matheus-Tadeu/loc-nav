@@ -58,8 +58,7 @@ class ShipsLocationService
      */
     public function searchShipsLocation($imo, $externalSystem): Ship
     {
-        $ship = $this->findShipLocationRepository->findByImo($imo);
-        if ($ship) {
+        if ($ship = $this->findShipLocationRepository->findByImo($imo)) {
             return $ship;
         }
 

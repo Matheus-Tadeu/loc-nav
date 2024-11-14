@@ -25,20 +25,20 @@ class RedisShipLocationRepositoryImp implements SaveCacheShipLocationRepository,
      * @param int $imo
      * @return Ship|null
      */
-    public function findByImo(int $imo): Ship|null
+    public function findByImo(int $imo): ?Ship
     {
-        $key = "ship_imo:{$imo}";
-        $data = Redis::get($key);
+        $data = Redis::get("ship_imo:{$imo}");
 
         if ($data) {
-            $data = json_decode($data, true);
-            if ($data) {
+            $formatData = json_decode($data, true);
+
+            if ($formatData) {
                 return new Ship(
-                    $data['imo'],
-                    $data['name'],
-                    $data['flag'],
-                    $data['latitude'],
-                    $data['longitude']
+                    $formatData['imo'],
+                    $formatData['name'],
+                    $formatData['flag'],
+                    $formatData['latitude'],
+                    $formatData['longitude']
                 );
             }
         }
