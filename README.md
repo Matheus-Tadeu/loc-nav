@@ -1,6 +1,6 @@
 # Projeto LocNav
 
-Simples projeto que busca a localização de embarcações. Veja mais detalhes sobre o projeto na [Wiki](https://github.com/Matheus-Tadeu/loc-nav/wiki)
+Simples projeto que busca a localização de embarcações. Veja mais detalhes sobre o projeto na [Wiki](https://github.com/Matheus-Tadeu/loc-nav/wiki/LocNav)
 
 ## Tecnologias Utilizadas
 - [PHP](https://www.php.net/): Linguagem de programação utilizada para desenvolver o projeto.
