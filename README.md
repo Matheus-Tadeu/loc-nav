@@ -19,9 +19,9 @@ Para subir o projeto, você deve ter o Docker instalado na sua máquina. Em segu
 docker-compose up --build -d
 ```
 
-## Documentação da API (Em breve)
+## Documentação da API
 
-A documentação Swagger do projeto pode ser acessada através do seguinte link quando o projeto estiver rodando: http://localhost:9000/api/documentation
+A documentação Swagger do projeto pode ser acessada através do link: http://localhost:9000/api/documentation
 
 
 ## Como executar os testes (Em breve)

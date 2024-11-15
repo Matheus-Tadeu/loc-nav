@@ -9,7 +9,7 @@ use App\Core\Domain\Ship\Factories\ExternalShipLocationFactory;
 use App\Core\Domain\Ship\Factories\SaveShipLocationFactory;
 use App\Core\Domain\Ship\Repositories\AllSaveShipLocationRepository;
 use App\Core\Domain\Ship\Repositories\FindShipLocationRepository;
-use App\Exceptions\InvalidExternalServiceException;
+use App\Exceptions\ExternalServiceException;
 use Illuminate\Support\Collection;
 
 class ShipsLocationService
@@ -57,11 +57,12 @@ class ShipsLocationService
      * @param int $imo
      * @param int $externalSystemId
      * @return Ship
+     * @throws ExternalServiceException
      */
     public function searchShipsLocation(int $imo, int $externalSystemId): Ship
     {
         if (!ExternalSystem::tryFrom($externalSystemId)) {
-            throw new InvalidExternalServiceException();
+            throw new ExternalServiceException();
         }
 
         if ($ship = $this->findShipLocationRepository->findByImo($imo, $externalSystemId)) {

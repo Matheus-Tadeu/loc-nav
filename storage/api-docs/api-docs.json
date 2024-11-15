@@ -1,136 +1,66 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Exemple Creational Pattern Factory Method",
-        "version": "0.1"
+        "title": "Loc-Nav",
+        "version": "1.0.0"
     },
     "paths": {
-        "/api/button": {
+        "/api/ships/location": {
             "get": {
                 "tags": [
-                    "Get Buttons"
+                    "Ships"
                 ],
-                "summary": "Get all buttons",
-                "operationId": "d630e9a5c27be7092d7e042c04cb7ab4",
+                "summary": "Get all ships locations",
+                "operationId": "dcc7a92b6cde864b918c3b0ee0deac8b",
                 "responses": {
                     "200": {
-                        "description": "List of buttons",
+                        "description": "Successful response",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "properties": {
-                                        "0": {
-                                            "properties": {
-                                                "id": {
-                                                    "type": "integer",
-                                                    "example": 1
-                                                },
-                                                "label": {
-                                                    "type": "string",
-                                                    "example": "Click Me"
-                                                },
-                                                "platform": {
-                                                    "type": "string",
-                                                    "example": "windows"
-                                                }
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "imo": {
+                                                "type": "integer",
+                                                "example": 9943267
                                             },
-                                            "type": "object"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                }
-            },
-            "post": {
-                "tags": [
-                    "Create Button"
-                ],
-                "summary": "Create a new button",
-                "operationId": "a588a46ad074e82cb8e5e23f2ecc36ac",
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "label",
-                                    "platform"
-                                ],
-                                "properties": {
-                                    "label": {
-                                        "type": "string",
-                                        "example": "Click Me"
-                                    },
-                                    "platform": {
-                                        "type": "string",
-                                        "enum": [
-                                            "windows",
-                                            "ios"
-                                        ],
-                                        "example": "windows"
+                                            "name": {
+                                                "type": "string",
+                                                "example": "EVER ACME"
+                                            },
+                                            "flag": {
+                                                "type": "string",
+                                                "example": "Singapore"
+                                            },
+                                            "latitude": {
+                                                "type": "string",
+                                                "example": "-34"
+                                            },
+                                            "longitude": {
+                                                "type": "string",
+                                                "example": "26"
+                                            },
+                                            "external_system": {
+                                                "type": "string",
+                                                "example": "VESSEL_FINDER"
+                                            }
+                                        },
+                                        "type": "object"
                                     }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "201": {
-                        "description": "Button created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "integer",
-                                            "example": 1
-                                        },
-                                        "label": {
-                                            "type": "string",
-                                            "example": "Click Me"
-                                        },
-                                        "platform": {
-                                            "type": "string",
-                                            "example": "windows"
-                                        }
-                                    },
-                                    "type": "object"
                                 }
                             }
                         }
                     },
-                    "422": {
-                        "description": "Validation Error",
+                    "500": {
+                        "description": "Internal error",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "The label field is required. (and 1 more error)"
-                                        },
-                                        "errors": {
-                                            "properties": {
-                                                "label": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "The label field is required."
-                                                    }
-                                                },
-                                                "platform": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "The platform field is required."
-                                                    }
-                                                }
-                                            },
-                                            "type": "object"
+                                            "example": "An unexpected error occurred. Please try again later."
                                         }
                                     },
                                     "type": "object"
@@ -141,65 +71,63 @@
                 }
             }
         },
-        "/api/socialmedia/{platform}": {
-            "post": {
+        "/api/ships/location/{imo}/{externalSystemId}": {
+            "get": {
                 "tags": [
-                    "Social Media"
+                    "Ships"
                 ],
-                "summary": "Post content to a social media platform",
-                "operationId": "11d87e097c0e96905962214f87de32ef",
+                "summary": "Search ship location by IMO and external system",
+                "operationId": "5e690073bfec1c68268b0fb4bb1f3b1e",
                 "parameters": [
                     {
-                        "name": "platform",
+                        "name": "imo",
                         "in": "path",
-                        "description": "The social media platform to post to",
                         "required": true,
                         "schema": {
-                            "type": "string",
-                            "enum": [
-                                "facebook",
-                                "linkedin"
-                            ]
+                            "type": "integer",
+                            "example": 9839131
+                        }
+                    },
+                    {
+                        "name": "externalSystemId",
+                        "in": "path",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "example": 1
                         }
                     }
                 ],
-                "requestBody": {
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "content"
-                                ],
-                                "properties": {
-                                    "content": {
-                                        "type": "string",
-                                        "example": "Hello, World!"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
                 "responses": {
-                    "201": {
-                        "description": "Content posted successfully",
+                    "200": {
+                        "description": "Successful response",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
-                                        "id": {
+                                        "imo": {
                                             "type": "integer",
-                                            "example": 1
+                                            "example": 9839131
                                         },
-                                        "content": {
+                                        "name": {
                                             "type": "string",
-                                            "example": "Hello, World!"
+                                            "example": "CC CHAMPS ELYSEES"
                                         },
-                                        "platform": {
+                                        "flag": {
                                             "type": "string",
-                                            "example": "twitter"
+                                            "example": "France"
+                                        },
+                                        "latitude": {
+                                            "type": "string",
+                                            "example": "-34"
+                                        },
+                                        "longitude": {
+                                            "type": "string",
+                                            "example": "18"
+                                        },
+                                        "external_system": {
+                                            "type": "string",
+                                            "example": "VESSEL_FINDER"
                                         }
                                     },
                                     "type": "object"
@@ -208,33 +136,46 @@
                         }
                     },
                     "422": {
-                        "description": "Validation Error",
+                        "description": "Invalid external service",
                         "content": {
                             "application/json": {
                                 "schema": {
                                     "properties": {
                                         "message": {
                                             "type": "string",
-                                            "example": "The selected platform is invalid."
-                                        },
-                                        "errors": {
-                                            "properties": {
-                                                "platform": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "The selected platform is invalid."
-                                                    }
-                                                },
-                                                "content": {
-                                                    "type": "array",
-                                                    "items": {
-                                                        "type": "string",
-                                                        "example": "The content field is required."
-                                                    }
-                                                }
-                                            },
-                                            "type": "object"
+                                            "example": "Invalid external service!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "IMO not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "IMO not found!"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "An unexpected error occurred. Please try again later."
                                         }
                                     },
                                     "type": "object"
@@ -245,5 +186,11 @@
                 }
             }
         }
-    }
+    },
+    "tags": [
+        {
+            "name": "Ships",
+            "description": "Ships"
+        }
+    ]
 }

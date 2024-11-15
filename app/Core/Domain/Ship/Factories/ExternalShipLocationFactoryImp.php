@@ -3,7 +3,7 @@
 namespace App\Core\Domain\Ship\Factories;
 
 use App\Core\Domain\Ship\Entities\Ship;
-use App\Exceptions\InvalidExternalServiceException;
+use App\Exceptions\ExternalServiceException;
 
 class ExternalShipLocationFactoryImp implements ExternalShipLocationFactory
 {
@@ -28,7 +28,7 @@ class ExternalShipLocationFactoryImp implements ExternalShipLocationFactory
     public function searchShipsLocation(int $imo, int $externalSystemId): Ship
     {
         if (!isset($this->shipsLocationExternalService[$externalSystemId])) {
-            throw new InvalidExternalServiceException();
+            throw new ExternalServiceException();
         }
 
         return $this->shipsLocationExternalService[$externalSystemId]->searchLocation($imo);

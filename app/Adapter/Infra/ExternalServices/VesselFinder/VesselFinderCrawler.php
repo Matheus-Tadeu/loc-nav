@@ -3,9 +3,11 @@
 namespace App\Adapter\Infra\ExternalServices\VesselFinder;
 
 use App\Adapter\Infra\ExternalServices\Contracts\Crawler as CrawlerInterface;
+use App\Exceptions\ExternalServiceException;
 use Exception;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\DomCrawler\Crawler;
 use GuzzleHttp\Client;
 
@@ -55,7 +57,15 @@ class VesselFinderCrawler implements CrawlerInterface
                 'longitude' => $location['ship_lon'],
             ];
         }  catch (ClientException | GuzzleException $e) {
-            throw new Exception($e->getMessage(), $e->getCode());
+            Log::error(
+                'error.getDetailsByImo',
+                [
+                    'message' => $e->getMessage(),
+                    'code' => $e->getCode(),
+                    'url' => $url,
+                ]
+            );
+            throw new ExternalServiceException('IMO not found!', 404);
         }
     }
 }
