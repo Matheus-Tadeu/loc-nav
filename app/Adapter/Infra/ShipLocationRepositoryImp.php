@@ -12,7 +12,7 @@ use Illuminate\Support\Collection;
 class ShipLocationRepositoryImp implements SaveShipLocationRepository, AllSaveShipLocationRepository
 {
     /**
-     * @var ShipModel|\Illuminate\Contracts\Foundation\Application|\Illuminate\Foundation\Application|mixed
+     * @var ShipModel
      */
     private ShipModel  $model;
 
@@ -32,7 +32,8 @@ class ShipLocationRepositoryImp implements SaveShipLocationRepository, AllSaveSh
             $ship->name,
             $ship->flag,
             $ship->latitude,
-            $ship->longitude
+            $ship->longitude,
+            $ship->external_system
         ));
     }
 
@@ -49,6 +50,7 @@ class ShipLocationRepositoryImp implements SaveShipLocationRepository, AllSaveSh
                 'flag' => $ship->flag,
                 'latitude' => $ship->latitude,
                 'longitude' => $ship->longitude,
+                'external_system' => $ship->external_system
             ]
         );
 
@@ -57,7 +59,8 @@ class ShipLocationRepositoryImp implements SaveShipLocationRepository, AllSaveSh
             $shipLocation->name,
             $shipLocation->flag,
             $shipLocation->latitude,
-            $shipLocation->longitude
+            $shipLocation->longitude,
+            $shipLocation->external_system
         );
     }
 }

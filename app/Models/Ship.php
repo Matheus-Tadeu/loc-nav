@@ -20,5 +20,6 @@ class Ship extends Model {
         'flag',
         'latitude',
         'longitude',
+        'external_system'
     ];
 }

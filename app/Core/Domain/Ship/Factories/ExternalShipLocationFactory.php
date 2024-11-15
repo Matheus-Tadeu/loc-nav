@@ -7,9 +7,9 @@ use App\Core\Domain\Ship\Entities\Ship;
 interface ExternalShipLocationFactory
 {
     /**
-     * @param $imo
-     * @param $externalSystem
+     * @param int $imo
+     * @param int $externalSystemId
      * @return Ship
      */
-    public function searchShipsLocation($imo, $externalSystem): Ship;
+    public function searchShipsLocation(int $imo, int $externalSystemId): Ship;
 }

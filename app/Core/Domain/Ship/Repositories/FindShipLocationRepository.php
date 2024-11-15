@@ -9,7 +9,8 @@ interface FindShipLocationRepository
 {
     /**
      * @param int $imo
+     * @param int $externalSystemId
      * @return Ship|null
      */
-    public function findByImo(int $imo): Ship|null;
+    public function findByImo(int $imo, int $externalSystemId): Ship|null;
 }

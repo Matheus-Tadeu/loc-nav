@@ -36,19 +36,27 @@ class Ship
     public string $longitude;
 
     /**
+     * @var string
+     * The external system of the ship.
+     */
+    public string $external_system;
+
+    /**
      * @param int $imo
      * @param string $name
      * @param string $flag
      * @param float $latitude
      * @param float $longitude
+     * @param string $externalSystem
      */
-    public function __construct(int $imo, string $name, string $flag, float $latitude, float $longitude)
+    public function __construct(int $imo, string $name, string $flag, float $latitude, float $longitude, string $externalSystem)
     {
         $this->imo = $imo;
         $this->name = $name;
         $this->flag = $flag;
         $this->latitude = $latitude;
         $this->longitude = $longitude;
+        $this->external_system = $externalSystem;
     }
 
     public function toArray(): array
@@ -59,6 +67,7 @@ class Ship
             'flag' => $this->flag,
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
+            'external_system' => $this->external_system
         ];
     }
 }

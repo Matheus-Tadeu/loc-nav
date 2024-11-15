@@ -3,7 +3,7 @@
 namespace App\Core\Domain\Ship\Factories;
 
 use App\Core\Domain\Ship\Entities\Ship;
-use InvalidArgumentException;
+use App\Exceptions\InvalidExternalServiceException;
 
 class ExternalShipLocationFactoryImp implements ExternalShipLocationFactory
 {
@@ -21,16 +21,16 @@ class ExternalShipLocationFactoryImp implements ExternalShipLocationFactory
     }
 
     /**
-     * @param $imo
-     * @param $externalSystem
+     * @param int $imo
+     * @param int $externalSystemId
      * @return Ship
      */
-    public function searchShipsLocation($imo, $externalSystem): Ship
+    public function searchShipsLocation(int $imo, int $externalSystemId): Ship
     {
-        if (!isset($this->shipsLocationExternalService[$externalSystem])) {
-            throw new InvalidArgumentException("Invalid external service!", 422);
+        if (!isset($this->shipsLocationExternalService[$externalSystemId])) {
+            throw new InvalidExternalServiceException();
         }
 
-        return $this->shipsLocationExternalService[$externalSystem]->searchLocation($imo);
+        return $this->shipsLocationExternalService[$externalSystemId]->searchLocation($imo);
     }
 }
