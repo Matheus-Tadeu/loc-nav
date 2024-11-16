@@ -65,11 +65,12 @@ class ShipsLocationService
             throw new ExternalServiceException();
         }
 
-        if ($ship = $this->findShipLocationRepository->findByImo($imo, $externalSystemId)) {
-            return $ship;
+        $ship = $this->externalShipLocationFactory->searchShipsLocation($imo, $externalSystemId);
+
+        if ($shipsLocation = $this->findShipLocationRepository->findByImo($ship)) {
+            return $shipsLocation;
         }
 
-        $ship = $this->externalShipLocationFactory->searchShipsLocation($imo, $externalSystemId);
         $ship = $this->saveShipLocationFactory->save($ship, DatabaseType::MYSQL);
         $this->saveShipLocationFactory->save($ship, DatabaseType::REDIS);
 

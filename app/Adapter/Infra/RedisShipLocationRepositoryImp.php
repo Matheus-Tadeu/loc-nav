@@ -3,15 +3,14 @@
 namespace App\Adapter\Infra;
 
 use App\Core\Domain\Ship\Entities\Ship;
-use App\Core\Domain\Ship\Enum\ExternalSystem;
 use App\Core\Domain\Ship\Repositories\FindShipLocationRepository;
 use App\Core\Domain\Ship\Repositories\SaveCacheShipLocationRepository;
 use Illuminate\Support\Facades\Redis;
 
 class RedisShipLocationRepositoryImp implements SaveCacheShipLocationRepository, FindShipLocationRepository
 {
-
-    private const KEY = 'ship_imo:%s_external_system_%s';
+    private const KEY = 'ship_imo:%s_external_system_%s_lat_%s_long_%s';
+    private const EXPIRATION = 60;
 
     /**
      * @param Ship $ship
@@ -19,20 +18,18 @@ class RedisShipLocationRepositoryImp implements SaveCacheShipLocationRepository,
      */
     public function save(Ship $ship): Ship
     {
-        $key = sprintf(self::KEY, $ship->imo, $ship->external_system);
-        $expiration = 60;
-        Redis::setex($key, $expiration, json_encode($ship));
+        $key = $this->contructKey($ship);
+        Redis::setex($key, self::EXPIRATION, json_encode($ship));
         return $ship;
     }
 
     /**
-     * @param int $imo
-     * @param int $externalSystemId
+     * @param Ship $ship
      * @return Ship|null
      */
-    public function findByImo(int $imo, int $externalSystemId): ?Ship
+    public function findByImo(Ship $ship): ?Ship
     {
-        $key = sprintf(self::KEY, $imo, ExternalSystem::from($externalSystemId)->name);
+        $key = $this->contructKey($ship);
         $data = Redis::get($key);
 
         if ($data) {
@@ -51,5 +48,14 @@ class RedisShipLocationRepositoryImp implements SaveCacheShipLocationRepository,
         }
 
         return null;
+    }
+
+    /**
+     * @param Ship $ship
+     * @return string
+     */
+    public function contructKey(Ship $ship): string
+    {
+        return sprintf(self::KEY, $ship->imo, $ship->external_system, $ship->latitude, $ship->longitude);
     }
 }

@@ -8,9 +8,8 @@ use Illuminate\Support\Collection;
 interface FindShipLocationRepository
 {
     /**
-     * @param int $imo
-     * @param int $externalSystemId
+     * @param Ship $ship
      * @return Ship|null
      */
-    public function findByImo(int $imo, int $externalSystemId): Ship|null;
+    public function findByImo(Ship $ship): Ship|null;
 }
