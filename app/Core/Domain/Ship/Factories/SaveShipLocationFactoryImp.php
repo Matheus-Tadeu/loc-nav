@@ -4,7 +4,6 @@ namespace App\Core\Domain\Ship\Factories;
 
 use App\Core\Domain\Ship\Entities\Ship;
 use App\Core\Domain\Ship\Enum\DatabaseType;
-use App\Core\Domain\Ship\Repositories\SaveCacheShipLocationRepository;
 use App\Core\Domain\Ship\Repositories\SaveShipLocationRepository;
 
 class SaveShipLocationFactoryImp implements SaveShipLocationFactory
@@ -15,13 +14,13 @@ class SaveShipLocationFactoryImp implements SaveShipLocationFactory
     private SaveShipLocationRepository $saveShipLocationRepository;
 
     /**
-     * @var SaveCacheShipLocationRepository
+     * @var SaveShipLocationRepository
      */
-    private SaveCacheShipLocationRepository $saveCacheShipLocationRepository;
+    private SaveShipLocationRepository $saveCacheShipLocationRepository;
 
     public function __construct(
         SaveShipLocationRepository $saveShipLocationRepository,
-        SaveCacheShipLocationRepository $saveCacheShipLocationRepository)
+        SaveShipLocationRepository $saveCacheShipLocationRepository)
     {
         $this->saveShipLocationRepository = $saveShipLocationRepository;
         $this->saveCacheShipLocationRepository = $saveCacheShipLocationRepository;

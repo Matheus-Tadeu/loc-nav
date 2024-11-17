@@ -12,8 +12,6 @@ use App\Core\Domain\Ship\Factories\SaveShipLocationFactory;
 use App\Core\Domain\Ship\Factories\SaveShipLocationFactoryImp;
 use App\Core\Domain\Ship\Repositories\AllSaveShipLocationRepository;
 use App\Core\Domain\Ship\Repositories\FindShipLocationRepository;
-use App\Core\Domain\Ship\Repositories\SaveCacheShipLocationRepository;
-use App\Core\Domain\Ship\Repositories\SaveShipLocationRepository;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,13 +28,14 @@ class AppServiceProvider extends ServiceProvider
             return new ExternalShipLocationFactoryImp($searchShipsLocationService);
         });
 
-        $this->app->singleton(SaveShipLocationRepository::class, ShipLocationRepositoryImp::class);
+        $this->app->singleton(SaveShipLocationFactory::class, function ($app) { 
+            $saveShipLocationRepository = $app->make(ShipLocationRepositoryImp::class);
+            $saveCacheShipLocationRepository = $app->make(RedisShipLocationRepositoryImp::class);
+            return new SaveShipLocationFactoryImp($saveShipLocationRepository, $saveCacheShipLocationRepository);
+        });
+
         $this->app->singleton(AllSaveShipLocationRepository::class, ShipLocationRepositoryImp::class);
-
-        $this->app->singleton(SaveCacheShipLocationRepository::class, RedisShipLocationRepositoryImp::class);
         $this->app->singleton(FindShipLocationRepository::class, RedisShipLocationRepositoryImp::class);
-
-        $this->app->singleton(SaveShipLocationFactory::class, SaveShipLocationFactoryImp::class);
     }
 
     /**

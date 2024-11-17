@@ -4,10 +4,10 @@ namespace App\Adapter\Infra;
 
 use App\Core\Domain\Ship\Entities\Ship;
 use App\Core\Domain\Ship\Repositories\FindShipLocationRepository;
-use App\Core\Domain\Ship\Repositories\SaveCacheShipLocationRepository;
+use App\Core\Domain\Ship\Repositories\SaveShipLocationRepository;
 use Illuminate\Support\Facades\Redis;
 
-class RedisShipLocationRepositoryImp implements SaveCacheShipLocationRepository, FindShipLocationRepository
+class RedisShipLocationRepositoryImp implements SaveShipLocationRepository, FindShipLocationRepository
 {
     private const KEY = 'ship_imo:%s_external_system_%s_lat_%s_long_%s';
     private const EXPIRATION = 60;
